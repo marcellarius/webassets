@@ -115,6 +115,7 @@ class Bundle(object):
         self.filters = options.pop('filters', None)
         self.depends = options.pop('depends', [])
         self.version = options.pop('version', [])
+        self.remove_duplicates = options.pop('remove_duplicates', True)
         self.extra = options.pop('extra', {})
 
         self._config = BundleConfig(self)
@@ -250,8 +251,21 @@ class Bundle(object):
 
                 resolved.extend(map(lambda r: (item, r), result))
 
+            if self.remove_duplicates:
+                resolved = self._remove_duplicates(resolved)
+
             self._resolved_contents = resolved
+
         return self._resolved_contents
+
+    def _remove_duplicates(self, resolved):
+        seen_set = set()
+        result = []
+        for item, r in resolved:
+            if r not in seen_set:
+                seen_set.add(r)
+                result.append((item, r))
+        return result
 
     def _get_depends(self):
         return self._depends
