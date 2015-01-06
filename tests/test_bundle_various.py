@@ -526,7 +526,7 @@ class TestGlobbing(TempEnvironmentHelper):
                            get_all_bundle_files(self.mkbundle('*'))))
 
     def test_glob_exclude_output(self):
-        """Never include the output file in the globbinb result.
+        """Never include the output file in the globbing result.
         """
         self.create_files(['out.js'])
         assert not list(filter(lambda s: 'out.js' in s,
