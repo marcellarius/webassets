@@ -94,7 +94,7 @@ class TempDirHelper(object):
 
     def path(self, name):
         """Return the given file's full path."""
-        return path.join(self._tempdir_created, name)
+        return path.normpath(path.join(self._tempdir_created, name))
 
     def setmtime(self, *files, **kwargs):
         """Set the mtime of the given files. Useful helper when

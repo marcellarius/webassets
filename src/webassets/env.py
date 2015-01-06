@@ -130,7 +130,7 @@ class Resolver(object):
         Subclasses can call this when they have narrowed done the
         location of a bundle item to a single directory.
         """
-        expr = path.join(directory, item)
+        expr = path.normpath(path.join(directory, item))
         if has_magic(expr):
             # Note: No error if glob returns an empty list
             return self.glob(directory, item)
